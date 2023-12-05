@@ -19,9 +19,9 @@ model User {
 
 model Pokemon {
   id          String   @id        @default(uuid())
-  pokemonId   Int      @unique
+  pokemonId   Int?     @unique
   name        String
-  description String
+  description String?
   image       String?
   height      Int
   weight      Int
