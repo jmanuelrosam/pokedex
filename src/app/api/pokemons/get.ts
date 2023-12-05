@@ -27,6 +27,7 @@ export async function GET(request: NextRequest) {
         contains: params.get('filter[name]') ?? undefined,
         mode: 'insensitive',
       },
+      deleted: false,
       height: {
         lte: params.get('filter[height][lte]')
           ? Number(params.get('filter[height][lte]'))
@@ -61,7 +62,10 @@ export async function GET(request: NextRequest) {
       links: {
         self: decodeURI(request.nextUrl.href),
       },
-      data,
+      data: data.map((pokemon) => {
+        const { deleted, ...rest } = pokemon
+        return rest
+      }),
     },
     { status: 200 }
   )

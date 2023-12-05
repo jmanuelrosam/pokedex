@@ -2,16 +2,17 @@ import { db } from "@/lib/db"
 import { NextResponse, type NextRequest } from "next/server"
 
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
-  const data = await db.pokemon.findUnique({
+  const pokemon = await db.pokemon.findUnique({
     where: {
       id: params.id,
+      deleted: false,
     },
     include: {
       types: true,
     },
   })
 
-  if (data === null) {
+  if (pokemon === null) {
     return NextResponse.json(
       {
         error: true,
@@ -26,7 +27,14 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
       links: {
         self: decodeURI(request.nextUrl.href),
       },
-      data,
+      data: Object.entries(pokemon)
+        .reduce((acc, [key, value]) => {
+          if (key === 'deleted') {
+            return acc
+          }
+
+          return { ...acc, [key]: value }
+        }, {}),
     },
     { status: 200 }
   )

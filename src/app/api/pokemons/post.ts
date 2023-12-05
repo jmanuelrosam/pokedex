@@ -26,7 +26,14 @@ export async function POST(request: NextRequest) {
       links: {
         self: `${decodeURI(request.nextUrl.href)}/${pokemon.id}`,
       },
-      data: pokemon
+      data: Object.entries(pokemon)
+        .reduce((acc, [key, value]) => {
+          if (key === 'deleted') {
+            return acc
+          }
+
+          return { ...acc, [key]: value }
+        }, {})
     },
     { status: 201 }
   )

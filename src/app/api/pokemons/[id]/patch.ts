@@ -8,20 +8,31 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
   const pokemon = await db.pokemon.findUnique({
     where: {
       id: params.id,
+      deleted: false,
     }
   })
+
+  if (pokemon === null) {
+    return NextResponse.json(
+      {
+        error: true,
+        message: 'Pokemon not found',
+      },
+      { status: 404 }
+    )
+  }
 
   let parsed
   try {
     parsed = updatePokemonSchema.parse(body)
   } catch (e) {
     return NextResponse.json(
-    {
-      error: true,
-      message: "Invalid data",
-    },
-    { status: 422 }
-  )
+      {
+        error: true,
+        message: "Invalid data",
+      },
+      { status: 422 }
+    )
   }
 
   const saved = await db.pokemon.update({
@@ -36,7 +47,14 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
       links: {
         self: `${decodeURI(request.nextUrl.href)}/${saved.id}`,
       },
-      data: saved
+      data: Object.entries(saved)
+        .reduce((acc, [key, value]) => {
+          if (key === 'deleted') {
+            return acc
+          }
+
+          return { ...acc, [key]: value }
+        }, {})
     },
     { status: 200 }
   )
