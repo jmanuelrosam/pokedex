@@ -18,7 +18,7 @@ model User {
 }
 
 model Pokemon {
-  id          String   @id        @default(uuid())
+  id          String   @id      @default(uuid())
   pokemonId   Int?     @unique
   name        String
   description String?
@@ -28,6 +28,7 @@ model Pokemon {
   stats       Json
   category    String
   abilities   String[]
+  deleted     Boolean           @default(false)
 
   types     Type[]
 
