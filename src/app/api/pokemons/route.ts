@@ -2,6 +2,10 @@ import { db } from "@/lib/db"
 import { NextResponse, type NextRequest } from "next/server"
 
 const SORTABLE_FIELDS:readonly string[] = ['name', 'height', 'weight']
+const PAGINATION = {
+  offset: 0,
+  limit: 10,
+}
 
 export async function GET(request: NextRequest) {
   const params = request.nextUrl.searchParams
@@ -41,14 +45,20 @@ export async function GET(request: NextRequest) {
       },
     },
     orderBy: normalizeSort,
+    skip: params.get('page[offset]')
+      ? Number(params.get('page[offset]'))
+      : PAGINATION.offset,
+    take: params.get('page[limit]')
+      ? Number(params.get('page[limit]'))
+      : PAGINATION.limit,
   })
 
   return NextResponse.json(
     {
-      data,
       links: {
-        self: request.url
-      }
+        self: decodeURI(request.url)
+      },
+      data,
     },
     { status: 200 }
   )
