@@ -1,0 +1,12 @@
+version: '3'
+services:
+  postgres:
+    container_name: pokedex-db
+    image: postgres:14-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=pokedex
+      - POSTGRES_DB=pokedex
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    ports:
+      - 4433:5432
