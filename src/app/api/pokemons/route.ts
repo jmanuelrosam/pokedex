@@ -24,7 +24,12 @@ export async function GET(request: NextRequest) {
   })
 
   return NextResponse.json(
-    { data },
+    {
+      data,
+      links: {
+        self: request.url
+      }
+    },
     { status: 200 }
   )
 }
