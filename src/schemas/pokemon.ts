@@ -15,3 +15,5 @@ export const pokemonSchema = z.object({
   category: z.string(),
   abilities: z.array(z.string()),
 })
+
+export const updatePokemonSchema = pokemonSchema.partial()
