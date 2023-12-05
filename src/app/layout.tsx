@@ -1,5 +1,8 @@
 import type { Metadata } from 'next'
 
+
+import '@/app/globals.css'
+
 export const metadata: Metadata = {
   title: 'Pokedex',
   description: 'Pokedex by Factofly',
