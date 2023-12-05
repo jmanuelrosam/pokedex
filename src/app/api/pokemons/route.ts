@@ -56,7 +56,7 @@ export async function GET(request: NextRequest) {
   return NextResponse.json(
     {
       links: {
-        self: decodeURI(request.url)
+        self: decodeURI(request.nextUrl.href),
       },
       data,
     },
