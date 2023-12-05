@@ -22,7 +22,7 @@ model Pokemon {
   pokemonId   Int      @unique
   name        String
   description String
-  image       String
+  image       String?
   height      Int
   weight      Int
   stats       Json
