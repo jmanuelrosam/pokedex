@@ -1,0 +1,53 @@
+{
+  "name": "pokedex",
+  "version": "0.0.1",
+  "description": "Pokedex",
+  "license": "MIT",
+  "private": true,
+  "main": "src/index.js",
+  "type": "module",
+  "keywords": [
+    "pokedex"
+  ],
+  "author": {
+    "name": "Jose Manuel Rosa Moncayo",
+    "email": "josemanuel.rosamoncayo@gmail.com"
+  },
+  "contributors": [],
+  "homepage": "https://github.com/jmanuelrosa/pokedex#readme",
+  "repository": "git+https://github.com/jmanuelrosa/pokedex.git",
+  "bugs": {
+    "url": "https://github.com/jmanuelrosa/pokedex/issues"
+  },
+  "engines": {
+    "node": ">= 20.x",
+    "npm": ">= 8.13.2",
+    "yarn": ">=1.22.10"
+  },
+  "packageManager": "yarn@3.4.1",
+  "scripts": {
+    "prepare": "husky install",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "lint:fix": "next lint --fix"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^18.4.3",
+    "@commitlint/config-conventional": "^18.4.3",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0",
+    "typescript": "5.3.2"
+  },
+  "dependencies": {
+    "autoprefixer": "^10.4.16",
+    "next": "^14.0.3",
+    "postcss": "^8.4.31",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tailwindcss": "^3.3.5"
+  }
+}
