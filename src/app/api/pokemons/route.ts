@@ -4,6 +4,15 @@ import { NextResponse, type NextRequest } from "next/server"
 export async function GET(request: NextRequest) {
   const params = request.nextUrl.searchParams
 
+  const sort = params.get('sort') ?? 'name'
+  const normalizeSort = sort.split(',').map((field) => {
+    if (field.startsWith('-')) {
+      return { [field.slice(1)]: 'desc' }
+    }
+
+    return {[field]: 'asc'}
+  })
+
   const data = await db.pokemon.findMany({
     where: {
       name: {
@@ -11,6 +20,7 @@ export async function GET(request: NextRequest) {
         mode: 'insensitive',
       }
     },
+    orderBy: normalizeSort,
   })
 
   return NextResponse.json(
