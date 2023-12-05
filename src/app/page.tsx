@@ -4,6 +4,7 @@ import { PokemonCard } from "@/app/_components/PokemonCard"
 import { IconSearch } from "@/app/_components/icons/search"
 import { Suspense } from "react";
 import { Pokemon } from "@prisma/client";
+import { IconRandom } from "./_components/icons/random";
 
 async function getPokemons () {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER}/pokemons`);
@@ -47,23 +48,27 @@ export default async function Page({
         </div>
       </header>
 
-      <aside>
+      {/* <aside>
         <div></div>
         <div>Show Advanced Search</div>
-      </aside>
+      </aside> */}
 
       <main className="container mx-auto">
-        <button>Surprise Me!</button>
-        <div>
-          <label htmlFor="">Sort By</label>
-          <select name="">
-            <option value="">Height (ascending)</option>
-            <option value="">Height (descending)</option>
-            <option value="">Width (ascending)</option>
-            <option value="">Width (descending)</option>
-            <option value="">A-Z</option>
-            <option value="">Z-A</option>
-          </select>
+        <div className="grid grid-cols-2 gap-x-8 py-12">
+          <button className="text-white bg-sky-700 w-full py-2 flex flex-row justify-center items-center gap-x-2">
+            <IconRandom className="h-4" /> Surprise Me!
+          </button>
+          <div className="w-full text-right">
+            <label htmlFor="">Sort By</label>
+            <select name="">
+              <option value="">Height (ascending)</option>
+              <option value="">Height (descending)</option>
+              <option value="">Width (ascending)</option>
+              <option value="">Width (descending)</option>
+              <option value="">A-Z</option>
+              <option value="">Z-A</option>
+            </select>
+          </div>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-16">
           <Suspense fallback={<p>loading</p>}>
