@@ -22,7 +22,23 @@ export async function GET(request: NextRequest) {
       name: {
         contains: params.get('filter[name]') ?? undefined,
         mode: 'insensitive',
-      }
+      },
+      height: {
+        lte: params.get('filter[height][lte]')
+          ? Number(params.get('filter[height][lte]'))
+          : undefined,
+        gte: params.get('filter[height][gte]')
+          ? Number(params.get('filter[height][gte]'))
+          : undefined,
+      },
+      weight: {
+        lte: params.get('filter[weight][lte]')
+          ? Number(params.get('filter[weight][lte]'))
+          : undefined,
+        gte: params.get('filter[weight][gte]')
+          ? Number(params.get('filter[weight][gte]'))
+          : undefined,
+      },
     },
     orderBy: normalizeSort,
   })
